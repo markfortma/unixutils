@@ -4,7 +4,7 @@
  * date		22 May 2024
  * due		15 Jun 2024
  *
- * A version of cat
+ * Like cat(1), output the contents from file to stdout
  */
 
 #include<stdio.h>
