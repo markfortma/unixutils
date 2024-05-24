@@ -34,16 +34,12 @@ int main(int argc, char *argv[]){
     if((zsrc = zip_source_file(archive, argv[i], 0, ZIP_LENGTH_TO_END)) == NULL){
       fprintf(stderr, "failed to open source: %s\n", argv[i]);
       continue;
-    } else {
-      printf("opened source %s\n", argv[i]);
     }
     if((len = zip_file_add(archive, argv[i], zsrc, ZIP_FL_OVERWRITE)) < 0){
       fprintf(stderr, "failed to archive: %s\n", argv[i]);
       zip_source_free(zsrc);
       continue;
     }
-    printf("added %s to %s\n", argv[i], argv[1]);
-    //    zip_source_free(zsrc);
   }
   
   zip_close(archive);

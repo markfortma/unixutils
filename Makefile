@@ -4,10 +4,10 @@ wcat: wcat.c
 	$(CC) $(CFLAGS) $(CINCS) $(CLIBS) -o $@ $^
 
 wgrep: wgrep.c
-	$(CC) $(CFLAGS) $(CINCS) $(CLIBS) -o $@ $^
+	$(CC) $(CFLAGS) $(CINCS) $(CLIBS) -lpcre -o $@ $^
 
 wunzip: wunzip.c
-	$(CC) $(CFLAGS) $(CINCS) $(CLIBS) -o $@ $^
+	$(CC) $(CFLAGS) $(CINCS) $(CLIBS) -lzip -o $@ $^
 
 wzip: wzip.c
 	$(CC) $(CFLAGS) $(CINCS) $(CLIBS) -lzip -o $@ $^
