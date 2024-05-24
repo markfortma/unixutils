@@ -10,7 +10,7 @@ wunzip: wunzip.c
 	$(CC) $(CFLAGS) $(CINCS) $(CLIBS) -o $@ $^
 
 wzip: wzip.c
-	$(CC) $(CFLAGS) $(CINCS) $(CLIBS) -o $@ $^
+	$(CC) $(CFLAGS) $(CINCS) $(CLIBS) -lzip -o $@ $^
 
 .PHONY: clean
 clean:
