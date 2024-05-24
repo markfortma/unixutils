@@ -9,7 +9,24 @@
 
 #include<stdio.h>
 #include<stdlib.h>
+#include<zip.h>
+
+void usage(const char *progname){
+  printf("Usage: %s in.zip\n", progname);
+}
 
 int main(int argc, char *argv[]){
+  if(argc != 2){
+    usage(argv[0]);
+    return EXIT_FAILURE;
+  }
+  int failcode;
+  zip_t *archive = NULL;
+  if((archive = zip_open(argv[1], ZIP_RDONLY, &failcode)) == NULL){
+    fprintf(stderr, "failed to open: %s for reading\n", argv[1]);
+    return EXIT_FAILURE;
+  }
+
+  zip_close(archive);
   return EXIT_SUCCESS;
 }
