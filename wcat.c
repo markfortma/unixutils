@@ -32,10 +32,6 @@ void dumpfile(const char *filename){
 
 int main(int argc, char *argv[])
 {
-	size_t linelength = 0;
-	ssize_t bytes = 0;
-	char *line = NULL;
-	FILE *in = NULL;
 	if(argc < 2)
 	{
 		fprintf(stderr, "Usage: %s in.txt ...\n", argv[0]);
