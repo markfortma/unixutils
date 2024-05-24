@@ -19,7 +19,7 @@ void usage(const char *progname){
   printf("Usage: %s Regexp file1 file2 ...\n", progname);
 }
 
-int match_in_file(const char *path, pcre *regexp){
+void match_in_file(const char *path, pcre *regexp){
   char *line = NULL;
   int lineno = 0;
   size_t linelen = 0;
@@ -51,8 +51,10 @@ int match_in_file(const char *path, pcre *regexp){
       printf("%i:%s\n", lineno, line);
     lineno++;
   }
+
   /* free the buffer containing line */
-  if(line != NULL) free(line);
+  if(line != NULL)
+    free(line);
   fclose(in);
 }
 
