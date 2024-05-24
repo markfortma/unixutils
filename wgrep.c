@@ -13,7 +13,7 @@
 #include<string.h>
 #include<pcre.h>
 
-#define CAPTUREVECTORSIZE 30
+#define CAPTUREVECTORSIZE 60
 
 void usage(const char *progname){
   printf("Usage: %s Regexp file1 file2 ...\n", progname);
@@ -40,14 +40,15 @@ int match_in_file(const char *path, pcre *regexp){
 		   regexp,        // compile regex
 		   NULL,          // optional results from pcre_study
 		   line,          // input string
-		   (int) linelen, // input string length
+		   (int) strlen(line), // input string length
 		   0,             // start of string offset
 		   0,             // PCRE flags
 		   capturegroups,
 		   CAPTUREVECTORSIZE);
     // handle errors from pcre_exec
-    if(0 <= rc)
-      printf("Line %i: %s\n", lineno, line);
+    if(0 < rc)
+      // act like 'grep -n'
+      printf("%i:%s\n", lineno, line);
     lineno++;
   }
   /* free the buffer containing line */
@@ -63,7 +64,7 @@ int main(int argc, char *argv[]){
   int errcode = 0;
   const char *errmsg = NULL;
   pcre *regexp = pcre_compile(argv[1], // RegExp pattern
-			      PCRE_CASELESS,       // flags
+			      0,       // flags
 			      &errmsg, // error message
 			      &errcode,// error code
 			      NULL);   // use default locale
