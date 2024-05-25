@@ -15,14 +15,16 @@ void dumpfile(const char *filename){
   size_t linelength = 0;
   ssize_t bytes = 0;
   char *line = NULL;
-  FILE *in = NULL;
-  in = fopen(filename, "r");
-  while(!feof(in))
+  FILE *in = fopen(filename, "r");
+  if(in == NULL)
+  {
+    fprintf(stderr, "fopen() failed\n");
+    return;
+  }
+  while((bytes = getline(&line, &linelength, in)) > 0)
     {
-      bytes = getline(&line, &linelength, in);
-      /* when negative bytes, exit while loop */
-      if(bytes < 0) break;
-      printf(line);
+      fputs(line, stdout);
+      fflush(stdout);
     }
   /* free the line buffer */
   free(line);
