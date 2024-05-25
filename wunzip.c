@@ -27,6 +27,25 @@ int main(int argc, char *argv[]){
     return EXIT_FAILURE;
   }
 
+  zip_int64_t indexcount = zip_get_num_entries(archive, ZIP_FL_UNCHANGED);
+  for(int c = 0; c < indexcount; c++){
+    int rc = 0;
+    char buff[64];
+    /* open file at index c */
+    zip_file_t *zfile = zip_fopen_index(archive, c, ZIP_FL_UNCHANGED);
+    if(zfile == NULL){
+      fprintf(stderr, "unable to open file at index: %i\n", c);
+      break;
+    }
+    FILE *out = fopen(zip_get_name(archive, c, ZIP_FL_UNCHANGED), "w");
+    do {
+      rc = zip_fread(zfile, buff, sizeof(buff));
+      fputs(buff, out);
+    }while(rc != 0);
+    fclose(out);
+    zip_fclose(zfile);
+    
+  }
   zip_close(archive);
   return EXIT_SUCCESS;
 }

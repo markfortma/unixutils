@@ -1,3 +1,5 @@
+CFLAGS ?= -Wall -O0 -g
+
 all: wcat wgrep wunzip wzip
 
 wcat: wcat.c
