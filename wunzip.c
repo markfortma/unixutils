@@ -9,7 +9,10 @@
 
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 #include<zip.h>
+
+#define BUFFSIZE 100
 
 void usage(const char *progname){
   printf("Usage: %s in.zip\n", progname);
@@ -30,7 +33,7 @@ int main(int argc, char *argv[]){
   zip_int64_t indexcount = zip_get_num_entries(archive, ZIP_FL_UNCHANGED);
   for(int c = 0; c < indexcount; c++){
     int rc = 0;
-    char buff[64];
+    char buff[BUFFSIZE];
     /* open file at index c */
     zip_file_t *zfile = zip_fopen_index(archive, c, ZIP_FL_UNCHANGED);
     if(zfile == NULL){
@@ -39,9 +42,13 @@ int main(int argc, char *argv[]){
     }
     FILE *out = fopen(zip_get_name(archive, c, ZIP_FL_UNCHANGED), "w");
     do {
-      rc = zip_fread(zfile, buff, sizeof(buff));
-      fputs(buff, out);
-    }while(rc != 0);
+      rc = zip_fread(zfile, buff, BUFFSIZE);
+      if(rc < 0){
+	fprintf(stderr, "zip_fread error\n");
+	break;
+      }
+      fwrite(buff, sizeof(char), rc, out);
+    }while(rc > 0);
     fclose(out);
     zip_fclose(zfile);
     
