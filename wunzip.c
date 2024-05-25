@@ -40,19 +40,24 @@ int main(int argc, char *argv[]){
       fprintf(stderr, "unable to open file at index: %i\n", c);
       break;
     }
+    /* prepare output file using the index's filename */
     FILE *out = fopen(zip_get_name(archive, c, ZIP_FL_UNCHANGED), "w");
     do {
+      /* read from zip archive */
       rc = zip_fread(zfile, buff, BUFFSIZE);
       if(rc < 0){
 	fprintf(stderr, "zip_fread error\n");
 	break;
       }
+      /* write to output file */
       fwrite(buff, sizeof(char), rc, out);
     }while(rc > 0);
+    /* close the input/output files */
     fclose(out);
     zip_fclose(zfile);
     
   }
+  /* close the archive */
   zip_close(archive);
   return EXIT_SUCCESS;
 }
