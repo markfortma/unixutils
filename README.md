@@ -27,4 +27,4 @@ Student implementation of zip(1), unzip(1), cat(1), and grep(1)
 
 # Author
 
-[Matt Markfort](mailto:matthew.markfort@my.metrostate.edu)
+Matt Markfort
