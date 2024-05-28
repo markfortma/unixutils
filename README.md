@@ -25,6 +25,10 @@ Student implementation of zip(1), unzip(1), cat(1), and grep(1)
 * libpcre
 * libzip
 
+# Reference
+
+[ostep-projects](https://github.com/remzi-arpacidusseau/ostep-projects/tree/master/initial-utilities)
+
 # Author
 
 Matt Markfort
